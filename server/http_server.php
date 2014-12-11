@@ -9,15 +9,23 @@ class HttpServer
 	public static $server;
 	
 	private function __construct() {
-		$http = new swoole_http_server ("0.0.0.0", 9501);
+		$http = new swoole_http_server("0.0.0.0", 9501);
 		$http->set (array(
 				'worker_num' => 2,
 				'daemonize' => false,
 				'max_request' => 10000,
 				'dispatch_mode' => 1 
 		));
-		$http->on('WorkerStart', array ($this,'onWorkerStart' ));
-		$http->on('request', function($request, $response) {
+		$http->on('WorkerStart', array($this,'onWorkerStart'));
+		$http->on('request', array($this,'onRequest'));
+		$http->start();
+	}
+	
+	public function onWorkerStart() {
+		define('APPLICATION_PATH', dirname(__DIR__));
+		include APPLICATION_PATH.'/httpindex.php';
+	}
+	public function onRequest($request, $response) {
 			$GLOBALS['RESOUCE'] = $response;
 			if (isset($request->server)) {
 				HttpServer::$server = $request->server;
@@ -51,13 +59,6 @@ class HttpServer
 			$result = empty($result) ? '' : $result;
 			$response->end($result);
 			unset($result);
-		} );
-		$http->start();
-	}
-	
-	public function onWorkerStart() {
-		define('APPLICATION_PATH', dirname(__DIR__));
-		include APPLICATION_PATH.'/httpindex.php';
 	}
 	
 	public static function getInstance() {
