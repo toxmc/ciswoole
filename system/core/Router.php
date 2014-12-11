@@ -127,7 +127,6 @@ class CI_Router {
 				$segments[] = $this->fetch_method();
 			}
 		}
-
 		// Load the routes.php file.
 		if (defined('ENVIRONMENT') AND is_file(APPPATH.'config/'.ENVIRONMENT.'/routes.php'))
 		{
@@ -242,6 +241,7 @@ class CI_Router {
 			// This lets the "routed" segment array identify that the default
 			// index method is being used.
 			$segments[1] = 'index';
+			$this->set_method($segments[1]);
 		}
 
 		// Update our "routed" segment array to contain the segments.
