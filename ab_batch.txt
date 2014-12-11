@@ -1,3 +1,6 @@
+测试在虚拟机下进行导致QPS两个都很低，主要是比较两种框架在相同模式下性能差别
+第一个是ciswoole，后面的是CodeIgniter 2.2
+
 [root@localhost conf.d]# ab -c500 -n2000 http://192.168.6.236:9501/welcome/dbtest
 This is ApacheBench, Version 2.3 <$Revision: 1430300 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
