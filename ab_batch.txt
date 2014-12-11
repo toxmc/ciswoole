@@ -1,0 +1,141 @@
+[root@localhost conf.d]# ab -c500 -n2000 http://192.168.6.236:9501/welcome/dbtest
+This is ApacheBench, Version 2.3 <$Revision: 1430300 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking 192.168.6.236 (be patient)
+Completed 200 requests
+Completed 400 requests
+Completed 600 requests
+Completed 800 requests
+Completed 1000 requests
+Completed 1200 requests
+Completed 1400 requests
+Completed 1600 requests
+Completed 1800 requests
+Completed 2000 requests
+Finished 2000 requests
+
+
+Server Software:        swoole-http-server
+Server Hostname:        192.168.6.236
+Server Port:            9501
+
+Document Path:          /welcome/dbtest
+Document Length:        4270 bytes
+
+Concurrency Level:      500
+Time taken for tests:   7.532 seconds
+Complete requests:      2000
+Failed requests:        0
+Write errors:           0
+Total transferred:      8790000 bytes
+HTML transferred:       8540000 bytes
+Requests per second:    265.52 [#/sec] (mean)
+Time per request:       1883.063 [ms] (mean)
+Time per request:       3.766 [ms] (mean, across all concurrent requests)
+Transfer rate:          1139.63 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:        0    8  13.9      0      41
+Processing:     6 1628 838.1   1763    2826
+Waiting:        5 1628 838.1   1763    2826
+Total:          6 1636 832.0   1764    2826
+
+Percentage of the requests served within a certain time (ms)
+  50%   1764
+  66%   2055
+  75%   2279
+  80%   2393
+  90%   2773
+  95%   2799
+  98%   2813
+  99%   2819
+ 100%   2826 (longest request)
+[root@localhost conf.d]# ab -c500 -n2000 http://www.ci22.com/welcome/dbtest
+This is ApacheBench, Version 2.3 <$Revision: 1430300 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking www.ci22.com (be patient)
+Completed 200 requests
+Completed 400 requests
+Completed 600 requests
+Completed 800 requests
+Completed 1000 requests
+Completed 1200 requests
+Completed 1400 requests
+Completed 1600 requests
+Completed 1800 requests
+apr_pollset_poll: The timeout specified has expired (70007)
+Total of 1877 requests completed
+[root@localhost conf.d]# ab -c500 -n1000 http://www.ci22.com/welcome/dbtest
+This is ApacheBench, Version 2.3 <$Revision: 1430300 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking www.ci22.com (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Completed 600 requests
+Completed 700 requests
+apr_pollset_poll: The timeout specified has expired (70007)
+Total of 795 requests completed
+[root@localhost conf.d]# ab -c200 -n500 http://www.ci22.com/welcome/dbtest
+This is ApacheBench, Version 2.3 <$Revision: 1430300 $>
+Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
+Licensed to The Apache Software Foundation, http://www.apache.org/
+
+Benchmarking www.ci22.com (be patient)
+Completed 100 requests
+Completed 200 requests
+Completed 300 requests
+Completed 400 requests
+Completed 500 requests
+Finished 500 requests
+
+
+Server Software:        Apache
+Server Hostname:        www.ci22.com
+Server Port:            80
+
+Document Path:          /welcome/dbtest
+Document Length:        331 bytes
+
+Concurrency Level:      200
+Time taken for tests:   12.038 seconds
+Complete requests:      500
+Failed requests:        473
+   (Connect: 0, Receive: 0, Length: 473, Exceptions: 0)
+Write errors:           0
+Non-2xx responses:      500
+Total transferred:      265622 bytes
+HTML transferred:       161716 bytes
+Requests per second:    41.54 [#/sec] (mean)
+Time per request:       4815.216 [ms] (mean)
+Time per request:       24.076 [ms] (mean, across all concurrent requests)
+Transfer rate:          21.55 [Kbytes/sec] received
+
+Connection Times (ms)
+              min  mean[+/-sd] median   max
+Connect:      285  380 206.4    335    1697
+Processing:   351 1160 971.0    982   11533
+Waiting:      351 1047 809.4    734   11205
+Total:        636 1540 1032.0   1306   12036
+
+Percentage of the requests served within a certain time (ms)
+  50%   1306
+  66%   1681
+  75%   1952
+  80%   2144
+  90%   2584
+  95%   2724
+  98%   3711
+  99%   5352
+ 100%  12036 (longest request)
+[root@localhost conf.d]# 
+
