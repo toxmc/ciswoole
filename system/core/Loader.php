@@ -758,7 +758,7 @@ class CI_Loader {
 		{
 			$_ci_ext = pathinfo($_ci_view, PATHINFO_EXTENSION);
 			$_ci_file = ($_ci_ext == '') ? $_ci_view.'.php' : $_ci_view;
-
+// 			var_dump($_ci_file,$_ci_ext,$_ci_view);
 			foreach ($this->_ci_view_paths as $view_file => $cascade)
 			{
 				if (file_exists($view_file.$_ci_file))
@@ -818,7 +818,9 @@ class CI_Loader {
 		 * can intercept the content right before it's sent to
 		 * the browser and then stop the timer it won't be accurate.
 		 */
-// 		ob_start();
+		if (!isset($_SERVER['http_server'])) {
+			ob_start();
+		}		
 
 		// If the PHP installation does not support short tags we'll
 		// do a little string replacement, changing the short tags
@@ -832,7 +834,6 @@ class CI_Loader {
 		{
 			include($_ci_path); // include() vs include_once() allows for multiple views with the same name
 		}
-
 		log_message('debug', 'File loaded: '.$_ci_path);
 
 		// Return the file data if requested

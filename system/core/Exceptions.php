@@ -144,13 +144,16 @@ class CI_Exceptions {
 				ob_end_flush();
 			}
 			ob_start();
+			include(APPPATH.'errors/'.$template.'.php');
+			$buffer = ob_get_contents();
+			ob_end_clean();
+			return $buffer;
 		}
 		
 		include(APPPATH.'errors/'.$template.'.php');
 		$buffer = ob_get_contents();
 		$GLOBALS['RESOUCE']->end($buffer);
 		ob_clean();
-// 		return $buffer;
 	}
 
 	// --------------------------------------------------------------------
@@ -167,7 +170,6 @@ class CI_Exceptions {
 	 */
 	function show_php_error($severity, $message, $filepath, $line)
 	{
-		echo 'aaaa';
 		$severity = ( ! isset($this->levels[$severity])) ? $severity : $this->levels[$severity];
 
 		$filepath = str_replace("\\", "/", $filepath);
@@ -184,13 +186,17 @@ class CI_Exceptions {
 				ob_end_flush();
 			}
 			ob_start();
+			include(APPPATH.'errors/error_php.php');
+			$buffer = ob_get_contents();
+			ob_end_clean();
+			echo $buffer;
+			return true;
 		}
 		include(APPPATH.'errors/error_php.php');
 		$buffer = ob_get_contents();
 		$buffer = strlen($buffer)?$buffer:'';
 		$GLOBALS['RESOUCE']->end($buffer);
 		ob_clean();
-// 		echo $buffer;
 	}
 
 

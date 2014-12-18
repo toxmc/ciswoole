@@ -146,8 +146,12 @@ class CI_URI {
 			$this->_set_uri_string($this->_parse_cli_args());
 			return;
 		}
-
-		$path = (isset($_SERVER[$uri])) ? $_SERVER[$uri] : @getenv($uri);
+		
+		if (isset($_SERVER['http_server'])) {
+			$path = (isset($_SERVER['http_server']['request_uri'])) ? $_SERVER['http_server']['request_uri'] : @getenv($uri);
+		} else {
+			$path = (isset($_SERVER[$uri])) ? $_SERVER[$uri] : @getenv($uri);
+		}
 		$this->_set_uri_string($path);
 	}
 
