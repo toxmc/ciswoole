@@ -34,12 +34,15 @@ class HttpServer
 			}
 			if (isset($request->header)) {
 				HttpServer::$header = $request->header;
+				$_SERVER['server_head'] = HttpServer::$header;
 			}
 			if (isset($request->get)) {
 				HttpServer::$get = $request->get;
+				$_GET = HttpServer::$get;
 			}
 			if (isset($request->post)) {
 				HttpServer::$post = $request->post;
+				$_POST = HttpServer::$post;
 			}
 
 			ob_start();
