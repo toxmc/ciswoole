@@ -153,7 +153,9 @@ class CI_Exceptions {
 		include(APPPATH.'errors/'.$template.'.php');
 		$buffer = ob_get_contents();
 		$GLOBALS['RESOUCE']->end($buffer);
-		ob_clean();
+		if ($buffer) {
+			ob_clean();
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -196,7 +198,9 @@ class CI_Exceptions {
 		$buffer = ob_get_contents();
 		$buffer = strlen($buffer)?$buffer:'';
 		$GLOBALS['RESOUCE']->end($buffer);
-		ob_clean();
+		if ($buffer) {
+			ob_clean();
+		}
 	}
 
 
