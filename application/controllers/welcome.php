@@ -23,7 +23,7 @@ class Welcome extends CI_Controller {
 	}
 	public function test()
 	{
-		$this->load->view('phpnfo');
+		$this->load->view('phpinfo');
 	}
 	public function dbtest(){
 		$this->load->model('testmodel');

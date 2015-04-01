@@ -30,7 +30,6 @@ class HttpServer
 			if (isset($request->server)) {
 				HttpServer::$server = $request->server;
 				$_SERVER['http_server'] = HttpServer::$server;
-// 				var_dump($_SERVER['http_server']);
 			}
 			if (isset($request->header)) {
 				HttpServer::$header = $request->header;

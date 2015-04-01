@@ -17,9 +17,30 @@ class Test extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+	public function __construct(){
+		parent::__construct();
+		$this->load->library('My_Session');
+		$this->mysession = new My_Session();
+		$this->mysession->start();
+	}
 	public function index()
 	{
 		$this->load->view('phpinfo');
+	}
+	public function test_echo()
+	{
+		echo 'im test echo';
+	}
+	public function set_session()
+	{
+		$_SESSION['name'] = 'xmc';
+		var_dump($_SESSION);
+		$this->mysession->save();
+	}
+	public function get_session()
+	{
+// 		$_SESSION['name'] = 'xmc';
+		var_dump($_SESSION['name']);
 	}
 }
 
