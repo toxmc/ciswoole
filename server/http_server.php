@@ -12,20 +12,33 @@ class HttpServer
 		define('CISWOOLE', TRUE);
 		$http = new swoole_http_server("0.0.0.0", 9501);
 		$http->set (array(
-			'worker_num' => 2,
+			'worker_num' => 8,
 			'daemonize' => false,
 			'max_request' => 10000,
 			'dispatch_mode' => 1 
 		));
 		$http->on('WorkerStart', array($this, 'onWorkerStart'));
 		$http->on('request', array($this, 'onRequest'));
+		$http->on('start', array($this, 'onStart'));
 		$http->start();
 	}
 	
-	public function onWorkerStart() {
+	public function onStart($serv) {
+		echo 'swoole version'.swoole_version().PHP_EOL;
+	}
+	
+	public function onWorkerStart($serv, $worker_id) {
+		global $argv;
+		if($worker_id >= $serv->setting['worker_num']) {
+			swoole_set_process_name("php {$argv[0]}: task");
+		} else {
+			swoole_set_process_name("php {$argv[0]}: worker");
+		}
+		echo "WorkerStart: MasterPid={$serv->master_pid}|Manager_pid={$serv->manager_pid}|WorkerId={$serv->worker_id}|WorkerPid={$serv->worker_pid}\n";
 		define('APPLICATION_PATH', dirname(__DIR__));
 		include APPLICATION_PATH.'/httpindex.php';
 	}
+	
 	public function onRequest($request, $response) {
 		$GLOBALS['REQUEST'] = $request;
 		$GLOBALS['RESPONSE'] = $response;
