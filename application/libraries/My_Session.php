@@ -51,8 +51,6 @@ class My_Session
             $this->readonly = $readonly;
             $this->open = true;
             $sessid = get_cookie(self::$cookie_key);
-            var_dump($sessid);
-            
             if(empty($sessid)) {
                 $sessid = RandomKey::randmd5(40);
                 set_cookie(self::$cookie_key, $sessid, self::$cache_life);

@@ -818,7 +818,7 @@ class CI_Loader {
 		 * can intercept the content right before it's sent to
 		 * the browser and then stop the timer it won't be accurate.
 		 */
-		if (!isset($_SERVER['http_server'])) {
+		if (!defined('CISWOOLE')) {
 			ob_start();
 		}		
 
@@ -837,10 +837,10 @@ class CI_Loader {
 		log_message('debug', 'File loaded: '.$_ci_path);
 
 		// Return the file data if requested
-		if ($_ci_return === TRUE && !isset($_SERVER['http_server']))
+		if ($_ci_return === TRUE && !defined('CISWOOLE'))
 		{
 			$buffer = ob_get_contents();
-			if (!isset($_SERVER['http_server'])) {
+			if (!defined('CISWOOLE')) {
 				@ob_end_clean();
 			}
 			return $buffer;
@@ -858,7 +858,7 @@ class CI_Loader {
 		 */
 		if (ob_get_level() > $this->_ci_ob_level + 1)
 		{
-			if (!isset($_SERVER['http_server'])) {
+			if (!defined('CISWOOLE')) {
 				ob_end_flush();
 			}
 		}

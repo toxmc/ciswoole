@@ -89,8 +89,8 @@ class CI_URI {
 			// Is the request coming from the command line?
 			if (php_sapi_name() == 'cli' or defined('STDIN'))
 			{
-				if (isset($_SERVER['http_server']['path_info'])) {
-					$path = (isset($_SERVER['http_server']['path_info'])) ? $_SERVER['http_server']['path_info'] : @getenv('path_info');
+				if (isset($GLOBALS['REQUEST']->server['path_info'])) {
+					$path = (isset($GLOBALS['REQUEST']->server['path_info'])) ? $GLOBALS['REQUEST']->server['path_info'] : @getenv('path_info');
 					$this->_set_uri_string($path);
 					return;
 				}
@@ -147,8 +147,8 @@ class CI_URI {
 			return;
 		}
 		
-		if (isset($_SERVER['http_server'])) {
-			$path = (isset($_SERVER['http_server']['request_uri'])) ? $_SERVER['http_server']['request_uri'] : @getenv($uri);
+		if (isset($GLOBALS['REQUEST']->server)) {
+			$path = (isset($GLOBALS['REQUEST']->server['request_uri'])) ? $GLOBALS['REQUEST']->server['request_uri'] : @getenv($uri);
 		} else {
 			$path = (isset($_SERVER[$uri])) ? $_SERVER[$uri] : @getenv($uri);
 		}
@@ -168,7 +168,7 @@ class CI_URI {
 	{
 		// Filter out control characters
 		$str = remove_invisible_characters($str, FALSE);
-// 		var_dump($_SERVER['http_server']['path_info'],$str);
+// 		var_dump($GLOBALS['REQUEST']->server['path_info'],$str);
 		// If the URI contains only a slash we'll kill it
 		$this->uri_string = ($str == '/') ? '' : $str;
 	}

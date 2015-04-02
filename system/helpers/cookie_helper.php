@@ -67,15 +67,16 @@ if ( ! function_exists('get_cookie'))
 	function get_cookie($index = '', $xss_clean = FALSE)
 	{
 		$CI =& get_instance();
-
 		$prefix = '';
-
-		if ( ! isset($_COOKIE[$index]) && config_item('cookie_prefix') != '')
-		{
+		if(!isset($_COOKIE[$index]) && config_item('cookie_prefix')!='') {
 			$prefix = config_item('cookie_prefix');
 		}
-
-		return $CI->input->cookie($prefix.$index, $xss_clean);
+		if(defined('CISWOOLE')) {
+			$cookie = isset($GLOBALS['REQUEST']->cookie[$prefix.$index]) ? $GLOBALS['REQUEST']->cookie[$prefix.$index] : '';
+			return $cookie;
+		} else {
+			return $CI->input->cookie($prefix.$index, $xss_clean);
+		}
 	}
 }
 

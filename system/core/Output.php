@@ -155,13 +155,10 @@ class CI_Output {
 	 */
 	function append_output($output)
 	{
-		if ($this->final_output == '' || isset($_SERVER['http_server']))
-		{
-			isset($_SERVER['http_server']) ? ob_clean() : false;
+		if ($this->final_output == '' || defined('CISWOOLE')) {
+			defined('CISWOOLE') ? ob_clean() : false;
 			$this->final_output = $output;
-		}
-		else
-		{
+		} else {
 			$this->final_output .= $output;
 		}
 		return $this;
@@ -372,7 +369,7 @@ class CI_Output {
 		// --------------------------------------------------------------------
 
 		// Is compression requested?
-		if ($CFG->item('compress_output') === TRUE && $this->_zlib_oc == FALSE && !isset($_SERVER['http_server']))
+		if ($CFG->item('compress_output') === TRUE && $this->_zlib_oc == FALSE && !defined('CISWOOLE'))
 		{
 			if (extension_loaded('zlib'))
 			{

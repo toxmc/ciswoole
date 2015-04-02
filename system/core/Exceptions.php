@@ -138,7 +138,7 @@ class CI_Exceptions {
 
 		$message = '<p>'.implode('</p><p>', ( ! is_array($message)) ? array($message) : $message).'</p>';
 
-		if (!isset($_SERVER['http_server'])) {
+		if (!defined('CISWOOLE')) {
 			if (ob_get_level() > $this->ob_level + 1)
 			{
 				ob_end_flush();
@@ -152,7 +152,7 @@ class CI_Exceptions {
 		
 		include(APPPATH.'errors/'.$template.'.php');
 		$buffer = ob_get_contents();
-		$GLOBALS['RESOUCE']->end($buffer);
+		$GLOBALS['RESPONSE']->end($buffer);
 		if ($buffer) {
 			ob_clean();
 		}
@@ -182,7 +182,7 @@ class CI_Exceptions {
 			$x = explode('/', $filepath);
 			$filepath = $x[count($x)-2].'/'.end($x);
 		}
-		if (!isset($_SERVER['http_server'])) {
+		if (!defined('CISWOOLE')) {
 			if (ob_get_level() > $this->ob_level + 1)
 			{
 				ob_end_flush();
@@ -197,7 +197,7 @@ class CI_Exceptions {
 		include(APPPATH.'errors/error_php.php');
 		$buffer = ob_get_contents();
 		$buffer = strlen($buffer)?$buffer:'';
-		$GLOBALS['RESOUCE']->end($buffer);
+		$GLOBALS['RESPONSE']->end($buffer);
 		if ($buffer) {
 			ob_clean();
 		}

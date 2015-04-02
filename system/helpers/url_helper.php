@@ -338,7 +338,7 @@ if ( ! function_exists('safe_mailto'))
 		$x[] = '<'; $x[] = '/'; $x[] = 'a'; $x[] = '>';
 
 		$x = array_reverse($x);
-		if (!isset($_SERVER['http_server'])) {
+		if (!isset($GLOBALS['REQUEST']->server)) {
 			ob_start();
 		}
 	?><script type="text/javascript">

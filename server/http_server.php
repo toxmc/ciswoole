@@ -9,15 +9,16 @@ class HttpServer
 	public static $server;
 	
 	private function __construct() {
+		define('CISWOOLE', TRUE);
 		$http = new swoole_http_server("0.0.0.0", 9501);
 		$http->set (array(
-				'worker_num' => 2,
-				'daemonize' => false,
-				'max_request' => 10000,
-				'dispatch_mode' => 1 
+			'worker_num' => 2,
+			'daemonize' => false,
+			'max_request' => 10000,
+			'dispatch_mode' => 1 
 		));
-		$http->on('WorkerStart', array($this,'onWorkerStart'));
-		$http->on('request', array($this,'onRequest'));
+		$http->on('WorkerStart', array($this, 'onWorkerStart'));
+		$http->on('request', array($this, 'onRequest'));
 		$http->start();
 	}
 	
@@ -26,41 +27,37 @@ class HttpServer
 		include APPLICATION_PATH.'/httpindex.php';
 	}
 	public function onRequest($request, $response) {
-			$GLOBALS['RESOUCE'] = $response;
-			if (isset($request->server)) {
-				HttpServer::$server = $request->server;
-				$_SERVER['http_server'] = HttpServer::$server;
-			}
-			if (isset($request->header)) {
-				HttpServer::$header = $request->header;
-				$_SERVER['server_head'] = HttpServer::$header;
-			}
-			if (isset($request->get)) {
-				HttpServer::$get = $request->get;
-				$_GET = HttpServer::$get;
-			}
-			if (isset($request->post)) {
-				HttpServer::$post = $request->post;
-				$_POST = HttpServer::$post;
-			}
-
-			ob_start();
-			try {
-				Httpindex::getInstance();
-// 				include 'test.php';
-			} catch (Exception $e) {
-				var_dump($e);
-			}
-			$result = ob_get_contents();
-			ob_end_clean();
-// 			var_dump($result);
-// 			$response->status(301);
-// 		   $response->header("Location", "http://www.baidu.com/");
-// 			$response->cookie("hello", "world", time() + 3600);
-// 		   $response->header("Content-Type", "text/html; charset=utf-8");
-			$result = empty($result) ? '' : $result;
-			$response->end($result);
-			unset($result);
+		$GLOBALS['REQUEST'] = $request;
+		$GLOBALS['RESPONSE'] = $response;
+		if (isset($request->header)) {
+			HttpServer::$header = $request->header;
+			$_SERVER['server_head'] = HttpServer::$header;
+		}
+		if (isset($request->get)) {
+			HttpServer::$get = $request->get;
+			$_GET = HttpServer::$get;
+		}
+		if (isset($request->post)) {
+			HttpServer::$post = $request->post;
+			$_POST = HttpServer::$post;
+		}
+		ob_start();
+		try {
+			$ciswoole = Httpindex::getInstance();
+// 			include 'test.php';
+		} catch (Exception $e) {
+			var_dump($e);
+		}
+		$result = ob_get_contents();
+		ob_end_clean();
+// 		var_dump($result);
+// 		$response->status(301);
+// 		$response->header("Location", "http://www.baidu.com/");
+// 		$response->cookie("hello", "world", time() + 3600);
+// 		$response->header("Content-Type", "text/html; charset=utf-8");
+		$result = empty($result) ? '' : $result;
+		$response->end($result);
+		unset($result);
 	}
 	
 	public static function getInstance() {

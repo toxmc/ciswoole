@@ -283,7 +283,11 @@ class CI_Input {
 			$expire = ($expire > 0) ? time() + $expire : 0;
 		}
 
-		setcookie($prefix.$name, $value, $expire, $path, $domain, $secure);
+		if (defined('CISWOOLE')) {
+			$GLOBALS['RESPONSE']->cookie($prefix.$name, $value, $expire, $path, $domain, $secure);
+		} else {
+			setcookie($prefix.$name, $value, $expire, $path, $domain, $secure);
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -345,18 +349,15 @@ class CI_Input {
 
 			$this->ip_address = ($spoof !== FALSE && in_array($_SERVER['REMOTE_ADDR'], $proxy_ips, TRUE))
 				? $spoof : $_SERVER['REMOTE_ADDR'];
-		}
-		else
-		{
-			if (isset($_SERVER['http_server']['remote_addr'])) {
-				$this->ip_address = $_SERVER['http_server']['remote_addr'];
+		} else {
+			if (isset($GLOBALS['REQUEST']->server['remote_addr'])) {
+				$this->ip_address = $GLOBALS['REQUEST']->server['remote_addr'];
 			} else {
 				$this->ip_address = $_SERVER['REMOTE_ADDR'];
 			}
 		}
 
-		if ( ! $this->valid_ip($this->ip_address))
-		{
+		if ( ! $this->valid_ip($this->ip_address)) {
 			$this->ip_address = '0.0.0.0';
 		}
 
