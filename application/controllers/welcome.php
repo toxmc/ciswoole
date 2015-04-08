@@ -23,13 +23,18 @@ class Welcome extends CI_Controller {
 	}
 	public function test()
 	{
-		$this->load->view('phpinfo');
+		$data = array('email'=>'smalleyes@live.cn','tel'=>'123456789');
+		$this->load->view('phpinfo',$data);
 	}
 	public function dbtest(){
 		$this->load->model('testmodel');
 		$res = $this->testmodel->get_last_ten();
 		$data['res'] = $res;
 		$this->load->view('dbtest',$data);
+	}
+	public function tiaoz(){
+		$this->load->helper("url");
+		redirect("welcome/test");
 	}
 }
 
