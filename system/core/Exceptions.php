@@ -113,7 +113,11 @@ class CI_Exceptions {
 		}
 
 		echo $this->show_error($heading, $message, 'error_404', 404);
-		exit;
+		if (!defined('CISWOOLE')) {
+			exit;
+		} else {
+			throw new Exception("it's over");
+		}
 	}
 
 	// --------------------------------------------------------------------
@@ -173,18 +177,14 @@ class CI_Exceptions {
 	function show_php_error($severity, $message, $filepath, $line)
 	{
 		$severity = ( ! isset($this->levels[$severity])) ? $severity : $this->levels[$severity];
-
 		$filepath = str_replace("\\", "/", $filepath);
-
 		// For safety reasons we do not show the full file path
-		if (FALSE !== strpos($filepath, '/'))
-		{
+		if (FALSE !== strpos($filepath, '/')) {
 			$x = explode('/', $filepath);
 			$filepath = $x[count($x)-2].'/'.end($x);
 		}
 		if (!defined('CISWOOLE')) {
-			if (ob_get_level() > $this->ob_level + 1)
-			{
+			if (ob_get_level() > $this->ob_level + 1) {
 				ob_end_flush();
 			}
 			ob_start();
@@ -192,14 +192,14 @@ class CI_Exceptions {
 			$buffer = ob_get_contents();
 			ob_end_clean();
 			echo $buffer;
-			return true;
-		}
-		include(APPPATH.'errors/error_php.php');
-		$buffer = ob_get_contents();
-		$buffer = strlen($buffer)?$buffer:'';
-		$GLOBALS['RESPONSE']->end($buffer);
-		if ($buffer) {
-			ob_clean();
+		} else {
+			include(APPPATH.'errors/error_php.php');
+			$buffer = ob_get_contents();
+			$buffer = strlen($buffer) ? $buffer : '';
+// 			$GLOBALS['RESPONSE']->end($buffer);
+			if ($buffer) {
+				ob_clean();
+			}
 		}
 	}
 
