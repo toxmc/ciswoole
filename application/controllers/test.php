@@ -25,7 +25,7 @@ class Test extends CI_Controller {
 	}
 	public function index()
 	{
-		$this->load->view('phpinfo');
+		show_error('a php error' , 500 , 'An Error Was Encountered');
 	}
 	public function test_echo()
 	{
