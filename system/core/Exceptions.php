@@ -157,6 +157,7 @@ class CI_Exceptions {
 		include(APPPATH.'errors/'.$template.'.php');
 		$buffer = ob_get_contents();
 		$GLOBALS['RESPONSE']->end($buffer);
+		$GLOBALS['ISEND'] = TRUE;
 		if ($buffer) {
 			ob_clean();
 		}
