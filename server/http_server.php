@@ -3,7 +3,7 @@ class HttpServer
 {
 	public $http;
 	public static $instance;
-	public static $server;
+	public static $level = 1;	//压缩等级，范围是1-9，等级越高压缩后的尺寸越小，但CPU消耗更多。默认为1
 	
 	/**
 	 * 初始化
@@ -53,9 +53,9 @@ class HttpServer
 	 * @param unknown $response
 	 */
 	public function onRequest($request, $response) {
-		define('play', TRUE);
 		$GLOBALS['REQUEST'] = $request;
 		$GLOBALS['RESPONSE'] = $response;
+		$GLOBALS['ISEND'] = FALSE;
 		if (isset($request->header)) {
 			$_SERVER['server_head'] = $request->header;
 		}
@@ -75,9 +75,10 @@ class HttpServer
 // 			$response->status(301);
 // 			$response->header("Location", "http://www.baidu.com/");
 // 			$response->cookie("hello", "world", time() + 3600);
-// 			$response->header("Content-Type", "text/html; charset=utf-8");
-			$result = empty($result) ? '' : $result;
-			$response->end($result);
+// 			$response->gzip(HttpServer::$level);
+			$response->header("Content-Type", "text/html;charset=utf-8");
+			$result = empty($result) ? 'No message' : $result;
+			!$GLOBALS['ISEND'] && $response->end($result);
 			unset($result);
 		} catch (Exception $e) {
 			var_dump($e);
