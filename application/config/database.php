@@ -45,14 +45,14 @@
 | the active record class
 */
 
-$active_group = 'default';
+$active_group = 'mypdo';
 $active_record = TRUE;
 
 $db['default']['hostname'] = '127.0.0.1';
 $db['default']['username'] = 'root';
 $db['default']['password'] = 'admin123';
 $db['default']['database'] = 'test';
-$db['default']['dbdriver'] = 'mysql';
+$db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
 $db['default']['db_debug'] = TRUE;
@@ -64,6 +64,20 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
-
+$db['mypdo']['hostname'] = 'mysql:dbname=test;host=127.0.0.1';//使用pdo链接
+$db['mypdo']['username'] = 'root';
+$db['mypdo']['password'] = 'admin123';
+$db['mypdo']['database'] = 'test';
+$db['mypdo']['dbdriver'] = 'pdo';
+$db['mypdo']['dbprefix'] = '';
+$db['mypdo']['pconnect'] = FALSE;
+$db['mypdo']['db_debug'] = FALSE;
+$db['mypdo']['cache_on'] = FALSE;
+$db['mypdo']['cachedir'] = '';
+$db['mypdo']['char_set'] = 'utf8';
+$db['mypdo']['dbcollat'] = 'utf8_general_ci';
+$db['mypdo']['swap_pre'] = '';
+$db['mypdo']['autoinit'] = TRUE;
+$db['mypdo']['stricton'] = FALSE;
 /* End of file database.php */
 /* Location: ./application/config/database.php */
