@@ -1,144 +1,121 @@
+压侧对同一个数据库，数据表进行读取操作
 测试在虚拟机下进行导致QPS两个都很低，主要是比较两种框架在相同模式下性能差别
 第一个是ciswoole，后面的是CodeIgniter 2.2
 
-[root@localhost conf.d]# ab -c500 -n2000 http://192.168.6.236:9501/welcome/dbtest
-This is ApacheBench, Version 2.3 <$Revision: 1430300 $>
+[xmc@localhost ciswoole]$ ab -c500 -n5000 -k http://192.168.1.10:9501/welcome/dbtest
+This is ApacheBench, Version 2.3 <$Revision: 1604373 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
-Benchmarking 192.168.6.236 (be patient)
-Completed 200 requests
-Completed 400 requests
-Completed 600 requests
-Completed 800 requests
+Benchmarking 192.168.1.10 (be patient)
+Completed 500 requests
 Completed 1000 requests
-Completed 1200 requests
-Completed 1400 requests
-Completed 1600 requests
-Completed 1800 requests
+Completed 1500 requests
 Completed 2000 requests
-Finished 2000 requests
+Completed 2500 requests
+Completed 3000 requests
+Completed 3500 requests
+Completed 4000 requests
+Completed 4500 requests
+Completed 5000 requests
+Finished 5000 requests
 
 
 Server Software:        swoole-http-server
-Server Hostname:        192.168.6.236
+Server Hostname:        192.168.1.10
 Server Port:            9501
 
 Document Path:          /welcome/dbtest
-Document Length:        4270 bytes
+Document Length:        1756 bytes
 
 Concurrency Level:      500
-Time taken for tests:   7.532 seconds
-Complete requests:      2000
+Time taken for tests:   6.077 seconds
+Complete requests:      5000
 Failed requests:        0
-Write errors:           0
-Total transferred:      8790000 bytes
-HTML transferred:       8540000 bytes
-Requests per second:    265.52 [#/sec] (mean)
-Time per request:       1883.063 [ms] (mean)
-Time per request:       3.766 [ms] (mean, across all concurrent requests)
-Transfer rate:          1139.63 [Kbytes/sec] received
+Keep-Alive requests:    5000
+Total transferred:      9625000 bytes
+HTML transferred:       8780000 bytes
+Requests per second:    822.73 [#/sec] (mean)
+Time per request:       607.729 [ms] (mean)
+Time per request:       1.215 [ms] (mean, across all concurrent requests)
+Transfer rate:          1546.65 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:        0    8  13.9      0      41
-Processing:     6 1628 838.1   1763    2826
-Waiting:        5 1628 838.1   1763    2826
-Total:          6 1636 832.0   1764    2826
+Connect:        0    2   6.2      0      28
+Processing:    54  575 128.3    589     896
+Waiting:       54  575 128.3    589     896
+Total:         81  577 124.6    589     896
 
 Percentage of the requests served within a certain time (ms)
-  50%   1764
-  66%   2055
-  75%   2279
-  80%   2393
-  90%   2773
-  95%   2799
-  98%   2813
-  99%   2819
- 100%   2826 (longest request)
-[root@localhost conf.d]# ab -c500 -n2000 http://www.ci22.com/welcome/dbtest
-This is ApacheBench, Version 2.3 <$Revision: 1430300 $>
+  50%    589
+  66%    624
+  75%    647
+  80%    666
+  90%    721
+  95%    761
+  98%    818
+  99%    843
+ 100%    896 (longest request)
+
+ 
+[xmc@localhost ciswoole]$  ab -c500 -n 5000 -k http://ci22.iizhu.com/welcome/dbtest
+This is ApacheBench, Version 2.3 <$Revision: 1604373 $>
 Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
 Licensed to The Apache Software Foundation, http://www.apache.org/
 
-Benchmarking www.ci22.com (be patient)
-Completed 200 requests
-Completed 400 requests
-Completed 600 requests
-Completed 800 requests
+Benchmarking ci22.iizhu.com (be patient)
+Completed 500 requests
 Completed 1000 requests
-Completed 1200 requests
-Completed 1400 requests
-Completed 1600 requests
-Completed 1800 requests
-apr_pollset_poll: The timeout specified has expired (70007)
-Total of 1877 requests completed
-[root@localhost conf.d]# ab -c500 -n1000 http://www.ci22.com/welcome/dbtest
-This is ApacheBench, Version 2.3 <$Revision: 1430300 $>
-Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
-Licensed to The Apache Software Foundation, http://www.apache.org/
-
-Benchmarking www.ci22.com (be patient)
-Completed 100 requests
-Completed 200 requests
-Completed 300 requests
-Completed 400 requests
-Completed 500 requests
-Completed 600 requests
-Completed 700 requests
-apr_pollset_poll: The timeout specified has expired (70007)
-Total of 795 requests completed
-[root@localhost conf.d]# ab -c200 -n500 http://www.ci22.com/welcome/dbtest
-This is ApacheBench, Version 2.3 <$Revision: 1430300 $>
-Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
-Licensed to The Apache Software Foundation, http://www.apache.org/
-
-Benchmarking www.ci22.com (be patient)
-Completed 100 requests
-Completed 200 requests
-Completed 300 requests
-Completed 400 requests
-Completed 500 requests
-Finished 500 requests
+Completed 1500 requests
+Completed 2000 requests
+Completed 2500 requests
+Completed 3000 requests
+Completed 3500 requests
+Completed 4000 requests
+Completed 4500 requests
+Completed 5000 requests
+Finished 5000 requests
 
 
-Server Software:        Apache
-Server Hostname:        www.ci22.com
+Server Software:        nginx/1.6.2
+Server Hostname:        ci22.iizhu.com
 Server Port:            80
 
 Document Path:          /welcome/dbtest
-Document Length:        331 bytes
+Document Length:        1756 bytes
 
-Concurrency Level:      200
-Time taken for tests:   12.038 seconds
-Complete requests:      500
-Failed requests:        473
-   (Connect: 0, Receive: 0, Length: 473, Exceptions: 0)
-Write errors:           0
-Non-2xx responses:      500
-Total transferred:      265622 bytes
-HTML transferred:       161716 bytes
-Requests per second:    41.54 [#/sec] (mean)
-Time per request:       4815.216 [ms] (mean)
-Time per request:       24.076 [ms] (mean, across all concurrent requests)
-Transfer rate:          21.55 [Kbytes/sec] received
+Concurrency Level:      500
+Time taken for tests:   35.462 seconds
+Complete requests:      5000
+Failed requests:        313
+   (Connect: 0, Receive: 0, Length: 313, Exceptions: 0)
+Non-2xx responses:      313
+Keep-Alive requests:    313
+Total transferred:      9087643 bytes
+HTML transferred:       8284208 bytes
+Requests per second:    140.99 [#/sec] (mean)
+Time per request:       3546.239 [ms] (mean)
+Time per request:       7.092 [ms] (mean, across all concurrent requests)
+Transfer rate:          250.26 [Kbytes/sec] received
 
 Connection Times (ms)
               min  mean[+/-sd] median   max
-Connect:      285  380 206.4    335    1697
-Processing:   351 1160 971.0    982   11533
-Waiting:      351 1047 809.4    734   11205
-Total:        636 1540 1032.0   1306   12036
+Connect:        0    3   8.2      0      32
+Processing:   126 2906 4831.2   1116   29236
+Waiting:      126 2906 4831.2   1116   29236
+Total:        154 2909 4835.0   1116   29262
 
 Percentage of the requests served within a certain time (ms)
-  50%   1306
-  66%   1681
-  75%   1952
-  80%   2144
-  90%   2584
-  95%   2724
-  98%   3711
-  99%   5352
- 100%  12036 (longest request)
-[root@localhost conf.d]# 
+  50%   1116
+  66%   2011
+  75%   2090
+  80%   2173
+  90%   5457
+  95%  13938
+  98%  26615
+  99%  26700
+ 100%  29262 (longest request)
 
+结论：ciswoole的qps达到822.73 [#/sec] (mean) 而使用nginx+php-fpm的qps只达到140.99 [#/sec] (mean)
+不难的出，ciswoole效率比ci+nginx+php-fpm强五倍
