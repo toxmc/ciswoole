@@ -48,6 +48,7 @@
 $active_group = 'mypdo';
 $active_record = TRUE;
 
+//mysqli 连接方式
 $db['default']['hostname'] = '127.0.0.1';
 $db['default']['username'] = 'root';
 $db['default']['password'] = 'admin123';
@@ -64,7 +65,8 @@ $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
 
-$db['mypdo']['hostname'] = 'mysql:dbname=test;host=127.0.0.1';//使用pdo链接
+//pdo 连接方式
+$db['mypdo']['hostname'] = 'mysql:dbname=test;host=127.0.0.1';
 $db['mypdo']['username'] = 'root';
 $db['mypdo']['password'] = 'admin123';
 $db['mypdo']['database'] = 'test';
