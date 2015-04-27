@@ -190,25 +190,24 @@ class CI_DB_pdo_driver extends CI_DB {
 	{
 		$sql = $this->_prep_query($sql);
 		$result_id = $this->conn_id->prepare($sql);
-
-		if (is_object($result_id) && ($result = $result_id->execute()))
-		{
-			if (is_numeric(stripos($sql, 'SELECT')))
-			{
+		$resultExec = $result_id->execute();
+		if(empty($resultExec)) {
+			$logMessage = 'DB_error:'.$result_id->errorInfo()['0'].'-->'.$result_id->errorInfo()['2'];
+			log_message('error',$logMessage);
+			return FALSE;
+		}
+		if (is_object($result_id)) {
+			if (is_numeric(stripos($sql, 'SELECT'))) {
 				$this->affect_rows = count($result_id->fetchAll());
-			}
-			else
-			{
+				$result_id->execute();
+			} else {
 				$this->affect_rows = $result_id->rowCount();
 			}
-		}
-		else
-		{
+		} else {
 			$this->affect_rows = 0;
-			$result = FALSE;
 		}
-
-		return $result;
+	
+		return $result_id;
 	}
 
 	// --------------------------------------------------------------------
