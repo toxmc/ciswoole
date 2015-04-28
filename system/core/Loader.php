@@ -416,6 +416,10 @@ class CI_Loader {
 	 */
 	public function view($view, $vars = array(), $return = FALSE)
 	{
+		if (defined('CISWOOLE')) {
+			$_ci_CI =& get_instance();
+			$_ci_CI->output->is_view = true;
+		}
 		return $this->_ci_load(array('_ci_view' => $view, '_ci_vars' => $this->_ci_object_to_array($vars), '_ci_return' => $return));
 	}
 
@@ -818,9 +822,7 @@ class CI_Loader {
 		 * can intercept the content right before it's sent to
 		 * the browser and then stop the timer it won't be accurate.
 		 */
-		if (!defined('CISWOOLE')) {
-			ob_start();
-		}		
+		defined('CISWOOLE')	OR ob_start();	
 
 		// If the PHP installation does not support short tags we'll
 		// do a little string replacement, changing the short tags
@@ -840,9 +842,7 @@ class CI_Loader {
 		if ($_ci_return === TRUE && !defined('CISWOOLE'))
 		{
 			$buffer = ob_get_contents();
-			if (!defined('CISWOOLE')) {
-				@ob_end_clean();
-			}
+			defined('CISWOOLE') OR @ob_end_clean();
 			return $buffer;
 		}
 
@@ -858,14 +858,12 @@ class CI_Loader {
 		 */
 		if (ob_get_level() > $this->_ci_ob_level + 1)
 		{
-			if (!defined('CISWOOLE')) {
-				ob_end_flush();
-			}
+			defined('CISWOOLE') OR ob_end_flush();
 		}
 		else
 		{
 			$_ci_CI->output->append_output(ob_get_contents());
-// 			@ob_end_clean();
+			defined('CISWOOLE') OR @ob_end_clean();
 		}
 	}
 

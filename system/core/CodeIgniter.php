@@ -187,7 +187,7 @@
  * ------------------------------------------------------
  */
 	$OUT =& load_class('Output', 'core');
-
+	defined('CISWOOLE') && $OUT->is_view = false;
 /*
  * ------------------------------------------------------
  *	Is there a valid cache file?  If so, we're done...

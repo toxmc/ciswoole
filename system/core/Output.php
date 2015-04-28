@@ -28,6 +28,7 @@
  */
 class CI_Output {
 
+	public $is_view = false;
 	/**
 	 * Current output string
 	 *
@@ -338,7 +339,9 @@ class CI_Output {
 		// Set the output data
 		if ($output == '')
 		{
-			$output =& $this->final_output;
+			if ($this->is_view OR !defined('CISWOOLE')) {
+				$output =& $this->final_output;
+			}
 		}
 
 		// --------------------------------------------------------------------
