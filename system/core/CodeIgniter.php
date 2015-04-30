@@ -364,8 +364,11 @@
 		// Any URI segments present (besides the class/function) will be passed to the method for convenience
 		call_user_func_array(array(&$CI, $method), array_slice($URI->rsegments, 2));
 		if (defined('CISWOOLE')) {
-			$OUT->set_output(ob_get_contents());
-			ob_clean();
+			$res = ob_get_contents();
+			if (!empty($res)) {
+				$OUT->set_output($res);
+				ob_clean();
+			}
 		}
 	}
 
