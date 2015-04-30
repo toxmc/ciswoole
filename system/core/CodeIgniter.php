@@ -268,7 +268,7 @@
  *  loader class can be called via the URI, nor can
  *  controller functions that begin with an underscore
  */
-	
+
 	$class  = $RTR->fetch_class();
 	$method = $RTR->fetch_method();
 	if ( ! class_exists($class)
@@ -363,12 +363,15 @@
 		// Call the requested method.
 		// Any URI segments present (besides the class/function) will be passed to the method for convenience
 		call_user_func_array(array(&$CI, $method), array_slice($URI->rsegments, 2));
+		if (defined('CISWOOLE')) {
+			$OUT->set_output(ob_get_contents());
+			ob_clean();
+		}
 	}
 
 
 	// Mark a benchmark end point
 	$BM->mark('controller_execution_time_( '.$class.' / '.$method.' )_end');
-
 /*
  * ------------------------------------------------------
  *  Is there a "post_controller" hook?
