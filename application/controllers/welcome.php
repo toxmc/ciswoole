@@ -17,22 +17,20 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
-	{
+	public function index() {
 		$this->load->view('welcome_message');
 	}
-	public function test()
-	{
+	public function test() {
 		$data = array('email'=>'smalleyes@live.cn','tel'=>'123456789');
 		$this->load->view('phpinfo',$data);
 	}
-	public function dbtest(){
+	public function dbtest() {
 		$this->load->model('testmodel');
 		$res = $this->testmodel->get_last_ten();
 		$data['res'] = $res;
 		$this->load->view('dbtest',$data);
 	}
-	public function tiaoz(){
+	public function tiaoz() {
 		$this->load->helper("url");
 		redirect("welcome/test");
 	}

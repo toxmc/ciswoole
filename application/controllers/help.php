@@ -16,5 +16,5 @@ class Help extends CI_Controller {
 	}
 }
 
-/* End of file Help.php */
-/* Location: ./application/controllers/Help.php */
+/* End of file help.php */
+/* Location: ./application/controllers/help.php */

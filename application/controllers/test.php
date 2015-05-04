@@ -17,32 +17,29 @@ class Test extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function __construct(){
+	public function __construct() {
 		parent::__construct();
 		$this->load->library('My_Session');
 		$this->mysession = new My_Session();
 		$this->mysession->start();
 	}
-	public function index()
-	{
+	public function index() {
 		show_error('a php error' , 500 , 'An Error Was Encountered');
 	}
-	public function test_echo()
-	{
+	public function test_echo() {
 		echo 'im test echo';
 	}
-	public function set_session()
-	{
+	public function set_session() {
 		$_SESSION['name'] = 'xmc';
 		var_dump($_SESSION);
 		$this->mysession->save();
 	}
-	public function get_session()
-	{
+	public function get_session() {
 // 		$_SESSION['name'] = 'xmc';
 		var_dump($_SESSION['name']);
 	}
+	
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file test.php */
+/* Location: ./application/controllers/test.php */

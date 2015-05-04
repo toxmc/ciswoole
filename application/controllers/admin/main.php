@@ -9,5 +9,5 @@ class Main extends CI_Controller {
 	}
 }
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+/* End of file main.php */
+/* Location: ./application/controllers/main.php */
