@@ -464,7 +464,11 @@ class CI_Router {
 	 */
 	function set_directory($dir)
 	{
-		$this->directory = str_replace(array('/', '.'), '', $dir).'/';
+		if (empty($dir)) {
+			$this->directory = '';
+		} else {
+			$this->directory = str_replace(array('/', '.'), '', $dir).'/';
+		}
 	}
 
 	// --------------------------------------------------------------------

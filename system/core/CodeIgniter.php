@@ -173,6 +173,7 @@
  * ------------------------------------------------------
  */
 	$RTR =& load_class('Router', 'core');
+	defined('CISWOOLE') && $RTR->set_directory();
 	$RTR->_set_routing();
 
 	// Set any routing overrides that may exist in the main index file
@@ -367,7 +368,7 @@
 			$res = ob_get_contents();
 			if (!empty($res)) {
 				$OUT->set_output($res);
-				ob_clean();
+				$OUT->is_view && ob_clean();
 			}
 		}
 	}
