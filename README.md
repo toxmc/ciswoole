@@ -38,7 +38,7 @@ CodeIgniter 2.2 with Swoole Http_Server
 ![db](https://raw.githubusercontent.com/smalleyes/ciswoole/master/contrast_db.jpg)
 ## batch test
 >压侧对同一个数据库，数据表进行读取操作测试在虚拟机下进行导致QPS两个都很低，主要是比较两种框架在相同模式下性能差别第一个是ciswoole
-    
+    ```
 	[xmc@localhost ciswoole]$ ab -c500 -n5000 -k http://192.168.1.10:9501/welcome/dbtest
 	This is ApacheBench, Version 2.3 <$Revision: 1604373 $>
 	Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
@@ -94,9 +94,9 @@ CodeIgniter 2.2 with Swoole Http_Server
 	  98%    818
 	  99%    843
 	 100%    896 (longest request)
-
+    ```
   >结论：这是CodeIgniter 2.2 
-		
+    ```		
 	[xmc@localhost ciswoole]$  ab -c500 -n 5000 -k http://ci22.iizhu.com/welcome/dbtest
 	This is ApacheBench, Version 2.3 <$Revision: 1604373 $>
 	Copyright 1996 Adam Twiss, Zeus Technology Ltd, http://www.zeustech.net/
@@ -154,6 +154,6 @@ CodeIgniter 2.2 with Swoole Http_Server
 	  98%  26615
 	  99%  26700
 	 100%  29262 (longest request)
-
+    ```
   >结论：ciswoole的qps达到822.73 [#/sec] (mean) 而使用nginx+php-fpm的qps只达到140.99 [#/sec] (mean)
 不难的出，ciswoole效率比ci+nginx+php-fpm强五倍
