@@ -10,7 +10,19 @@
 |
 */
 
+$hook['pre_controller'][] = array(
+		'class'    => 'testhook',
+		'function' => 'test',
+		'filename' => 'testhook.php',
+		'filepath' => 'hooks'
+);
 
+$hook['pre_controller'][] = array(
+		'class'    => 'testhook',
+		'function' => 'test1',
+		'filename' => 'testhook.php',
+		'filepath' => 'hooks'
+);
 
 /* End of file hooks.php */
 /* Location: ./application/config/hooks.php */
