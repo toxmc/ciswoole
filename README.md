@@ -6,7 +6,7 @@ CodeIgniter 2.2 with Swoole Http_Server
 ## Requirements
 
 * PHP 5.3+
-* Swoole 1.7.8
+* Swoole 1.7.16
 * Linux, OS X and basic Windows support (Thinks to cygwin)
 
 ## Installation Swoole
