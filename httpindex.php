@@ -1,14 +1,17 @@
 <?php
 
+/**
+ * 请先运行:php server/http_server.php
+ * @author xmc
+ */
 class Httpindex
 {
 	static public  $httpdefined;
-	private function __construct(){
+	private function __construct()
+	{
 		define('ENVIRONMENT', 'development');
-		if (defined('ENVIRONMENT'))
-		{
-			switch (ENVIRONMENT)
-			{
+		if (defined('ENVIRONMENT')) {
+			switch (ENVIRONMENT) {
 				case 'development':
 					error_reporting(E_ALL);
 					break;
@@ -73,7 +76,8 @@ class Httpindex
 		}
 	}
 	
-	public static function getInstance(){
+	public static function getInstance($request, $response)
+	{
 		if (!self::$httpdefined) {
 			$httpdefined = new self();
 			self::$httpdefined = $httpdefined;
@@ -84,10 +88,23 @@ class Httpindex
 			* And away we go...
 			*/
 		}
+		$_GET = $_POST = array();
+		$GLOBALS['REQUEST'] = $request;
+		$GLOBALS['RESPONSE'] = $response;
+		if (isset($request->header)) {
+			$_SERVER['server_head'] = $request->header;
+		}
+		if (isset($request->get)) {
+			$_GET = $request->get;
+		}
+		if (isset($request->post)) {
+			$_POST = $request->post;
+		}
 		include BASEPATH.'core/CodeIgniter.php';
 	}
 	
-	public function __destruct(){
+	public function __destruct()
+	{
 		self::$httpdefined=false;
 	}
 }

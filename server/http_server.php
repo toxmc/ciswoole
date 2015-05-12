@@ -8,7 +8,8 @@ class HttpServer
 	/**
 	 * 初始化
 	 */
-	private function __construct() {
+	private function __construct()
+	{
 		define('CISWOOLE', TRUE);
 		register_shutdown_function(array($this, 'handleFatal'));
 		$http = new swoole_http_server("0.0.0.0", 9501);
@@ -28,7 +29,8 @@ class HttpServer
 	 * server start的时候调用
 	 * @param unknown $serv
 	 */
-	public function onStart($serv) {
+	public function onStart($serv)
+	{
 		echo 'swoole version'.swoole_version().PHP_EOL;
 	}
 	/**
@@ -36,7 +38,8 @@ class HttpServer
 	 * @param unknown $serv
 	 * @param int $worker_id
 	 */
-	public function onWorkerStart($serv, $worker_id) {
+	public function onWorkerStart($serv, $worker_id)
+	{
 		global $argv;
 		if($worker_id >= $serv->setting['worker_num']) {
 			swoole_set_process_name("php {$argv[0]}: task");
@@ -53,44 +56,29 @@ class HttpServer
 	 * @param unknown $request
 	 * @param unknown $response
 	 */
-	public function onRequest($request, $response) {
-		$_GET = $_POST = array();
-		$GLOBALS['REQUEST'] = $request;
-		$GLOBALS['RESPONSE'] = $response;
+	public function onRequest($request, $response)
+	{
 		$GLOBALS['ISEND'] = FALSE;
-		if (isset($request->header)) {
-			$_SERVER['server_head'] = $request->header;
-		}
-		if (isset($request->get)) {
-			$_GET = $request->get;
-		}
-		if (isset($request->post)) {
-			$_POST = $request->post;
-		}
 		try {
 			ob_start();
-			$ciswoole = Httpindex::getInstance();
+			Httpindex::getInstance($request, $response);
 // 			include 'test.php';
 			$result = ob_get_contents();
 			ob_end_clean();
-// 			var_dump($result);
-// 			$response->status(301);
-// 			$response->header("Location", "http://www.baidu.com/");
-// 			$response->cookie("hello", "world", time() + 3600);
-// 			$response->gzip(HttpServer::$level);
 			$response->header("Content-Type", "text/html;charset=utf-8");
 			$result = empty($result) ? 'No message' : $result;
 			!$GLOBALS['ISEND'] && $response->end($result);
 			unset($result);
 		} catch (Exception $e) {
-			var_dump($e);
+			$response->end($e->getMessage());
 		}
 	}
 	
 	/**
 	 * 致命错误处理
 	 */
-	public function handleFatal() {
+	public function handleFatal()
+	{
 		$error = error_get_last();
 		if (isset($error['type'])) {
 			switch ($error['type']) {
@@ -145,7 +133,8 @@ class HttpServer
 		}
 	}
 	
-	public static function getInstance() {
+	public static function getInstance()
+	{
 		if (!self::$instance) {
 			self::$instance = new self();
 		}
