@@ -81,14 +81,15 @@ class Httpindex
 		if (!self::$httpdefined) {
 			$httpdefined = new self();
 			self::$httpdefined = $httpdefined;
-			/*
-			 * --------------------------------------------------------------------
-			* LOAD THE BOOTSTRAP FILE
-			* --------------------------------------------------------------------
-			* And away we go...
-			*/
 		}
+		/*
+		 * --------------------------------------------------------------------
+		* LOAD THE BOOTSTRAP FILE
+		* --------------------------------------------------------------------
+		* And away we go...
+		*/
 		$_GET = $_POST = array();
+		$GLOBALS['ISEND'] = FALSE;
 		$GLOBALS['REQUEST'] = $request;
 		$GLOBALS['RESPONSE'] = $response;
 		if (isset($request->header)) {

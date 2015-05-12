@@ -58,7 +58,6 @@ class HttpServer
 	 */
 	public function onRequest($request, $response)
 	{
-		$GLOBALS['ISEND'] = FALSE;
 		try {
 			ob_start();
 			Httpindex::getInstance($request, $response);
