@@ -54,6 +54,7 @@ class HttpServer
 	 * @param unknown $response
 	 */
 	public function onRequest($request, $response) {
+		$_GET = $_POST = array();
 		$GLOBALS['REQUEST'] = $request;
 		$GLOBALS['RESPONSE'] = $response;
 		$GLOBALS['ISEND'] = FALSE;
@@ -66,8 +67,8 @@ class HttpServer
 		if (isset($request->post)) {
 			$_POST = $request->post;
 		}
-		ob_start();
 		try {
+			ob_start();
 			$ciswoole = Httpindex::getInstance();
 // 			include 'test.php';
 			$result = ob_get_contents();
